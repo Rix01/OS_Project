@@ -3,12 +3,16 @@
     src: url("Signika-Medium.ttf");
 }
 
+@font-face {
+    font-family: 'SCDream';
+    src: url("SCDream5.otf");
+}
+
 * {
     padding: 0;
     margin-top: 0;
     box-sizing: border-box;
 }
-
 html {
     width:100%;
     height: 100%;
@@ -16,12 +20,24 @@ html {
 body {
     min-height: 100vh;
 }
-
 div {
     font-family: "Signika", serif;
     font-size: 25px;
+    width: 100%;
 }
-
+label {
+    display: none;
+}
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+option{
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    outline: 0;
+}
 .main{
     display: flex;
     width:100%;
@@ -44,31 +60,65 @@ div {
     border-collapse : collapse;
     border-spacing : 0;
     color: #3A6E87;
+    display: flex;
 }
 
-th{
+#name, #at, #bt{
+    text-align: center;
     background: #5392A2;
-    font-size: 150%;
+    font-size: 140%;
     color: white;
+    padding: 5px;
 }
 
-input{
+.process-form {
+    margin-top: 1px;
+    color : #3A6E87;
+    font-size: 25px;
+}
+
+#processOne > #form-container {
+    overflow: auto;
+}
+
+[id^="id_form-"]{
     background: #CBDEE3;
     border-radius: 15px;
     border: none;
     text-align: center;
     font-size: 25px;
-    margin: 6px;
-    width: 80%;
+    margin: 6px 15px 6px 15px;
+    width: 24%;
     color: #3A6E87;
 }
+
+/* showLog.html */
+#processNAME, #processAT, #processBT {
+    background: #CBDEE3;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    font-size: 25px;
+    margin: 6px 15px 6px 15px;
+    width: 24%;
+    color: #3A6E87;
+    display: inline-block;
+}
+/* end showLog.html */
+
+#processName{
+    display: inline-block;
+    color: #3A6E87;
+    width:35%;
+}
+
 #plus{
     background: #92C4D0;
     width:90%;
     border: none;
     color:white;
     font-size: 25px;
-    margin: 25px 2px 5px 2px;
+    margin: 5px 2px 5px 2px;
     border-radius: 15px;
 }
 
@@ -107,7 +157,7 @@ input{
     background: #D0EDDA;
     border: 3px solid #61C184;
     color: white;
-    width: 8em;
+    width: 80%;
     border-radius: 15px;
     margin: 15px;
 }
@@ -128,9 +178,10 @@ button{
 /*
 알고리즘
 */
-#Algorithm{
+#AlgorithmList{
     box-sizing: content-box;
 }
+
 .dropdown-menu {
     margin-top: 25px;
     padding: 10px;
@@ -144,32 +195,53 @@ button{
     font-family: "Signika", serif;
 }
 
-option{
-    padding-left: 10px;
-    padding-right: 10px;
+/* showLog.html */
+#AlgorithmInfo {
+    margin-top: 25px;
+    padding: 10px;
+    width:100%;
     border-radius: 15px;
-    outline: 0;
+    height: 65px;
+    background: #99B0B6;
+    font-size: 150%;
+    color: black;
+    font-family: "Signika", serif;
 }
+#quantum {
+    background: #E2E4B2;
+    width:75%;
+    float: right;
+    vertical-align: center;
+    border-radius: 15px;
+    font-size : 100%;
+    text-align: center;
+    border : none;
+}
+/** end ShowInfo.html **/
+
 
 /*
 RR
  */
 #RR {
     margin-top: 10px;
+    width: 100%;
 }
 #RR > #LabelRR{
     text-decoration-line: underline;
     text-decoration-thickness: 2px;
-
     float: left;
     width: 20%;
-    top: 50%;
 }
-#RR> label > input {
+#RR> input {
     background: #E2E4B2;
     width:75%;
     float: right;
     vertical-align: center;
+    border-radius: 15px;
+    font-size : 100%;
+    text-align: center;
+    border : none;
 }
 
 /*
@@ -192,6 +264,13 @@ RR
 
 .simulatorTable::-webkit-scrollbar {
     display: none;
+}
+#logButton {
+    background-color: white;
+}
+#logButton:active {
+    background-color: #3A6E87;
+    color:white;
 }
 
 #Log{
@@ -246,6 +325,14 @@ RR
     height: 100%;
 }
 
+#current > input {
+    width: 15px;
+    text-align: center;
+    font-size: 100%;
+    border: none;
+    background-color: #D9D9D9;
+    font-family: "Signika", serif;
+}
 
 
 
@@ -280,13 +367,31 @@ RR
     border-radius: 15px;
 }
 
-#go > #goButton:hover {
+#go > #goButton:active {
     width: 100%;
     background: darkred;
     color:white;
     border: none;
     border-radius: 15px;
 }
+/* showLog.html */
+#go > #backButton {
+    width: 100%;
+    background: #4A59DF;
+    color:white;
+    border: none;
+    border-radius: 15px;
+}
+#go > #backButton:active {
+    width: 100%;
+    background: darkblue;
+    color:white;
+    border: none;
+    border-radius: 15px;
+}
+/* end showLog.html */
+
+
 #titleImage{
     float: right;
     display: flex;
@@ -299,7 +404,7 @@ RR
     float:right;
     display: flex;
     justify-content: right;
-    font-size: 200%;
+    font-size: 180%;
     color: #4A59DF;
     width:60%;
 }
@@ -323,10 +428,20 @@ RR
 
 .algorithmExplain> .explain > #explainText > #explainText1 {
     margin-top: 1%;
+    margin-left: 2%;
     border-radius: 15px;
     width: 95%;
-    font-size: 100%;
+    font-size: 90%;
+    font-family: 'SCDream', serif;
     color: #9699F1;
 }
 
+
+
+/**
+번외 : 버튼 안 보이게 하기
+ */
+#simulatorInfo, #processSubmit, #algorithmSubmit{
+    display: none;
+}
 
