@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+#
+# from Scheduler.views import create_process, create_process_form
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Scheduler.urls')),
 
+    # path('<pk>/', create_process, name="create-process"),
+    # path('html/process-form/', create_process_form, name="process-form"),
 ]

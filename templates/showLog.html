@@ -4,26 +4,24 @@
 <!-- 전체 화면 삼분할 -->
 <div class="main" id = "totalScreen" style="--bs-columns: 12;" >
     <!--왼쪽 구역 -->
-
     <div class="g-col-6" id = "process">
-        <div class= "process" id = "processTable" >
-            <div id ="name" style = "width: 50%">Process Name</div>
-            <div id="at" style = "width: 33%">AT</div>
-            <div id="bt" style = "width: 43%">BT</div>
-        </div>
-        <div id = "processOne">
-            <form id = "form-container" method="POST">
-                {% csrf_token %}
-                {{ process_formset.management_form }}
-                {% for form in process_formset %}
-                    <div class = "process-form">
-                        <span id="processName">Process 1</span> {{ form }}
-                    </div>
+        <table>
+            <tr class= "process" id = "processTable" >
+                <th id ="name" style = "width: 50%">Process Name</th>
+                <th id="at" style = "width: 33%">AT</th>
+                <th id="bt" style = "width: 43%">BT</th>
+            </tr>
+            <tr id = "processOne" class = "process-form">
+                {% for form in processAll %}
+                    <td id="processNAME" style="width:30%">{{ form.Process }} </td>
+                    <td id="processAT">{{ form.AT }}</td>
+                    <td id="processBT">{{ form.BT }}</td>
                 {% endfor %}
-                <button id = "plus" type = "button"> + </button>
-                <button id = "processSubmit" type="submit" name="add_process" value = "add_process"> Submit! </button>
-            </form>
-        </div>
+            </tr>
+        </table>
+        {# 버튼이 있어야 js에서 오류가 안남 -> 있지만, 안보이게 설정 #}
+        <button id = "plus" type = "button" style = "display: none"> + </button>
+{#        <button id = "processSubmit" type="submit" name="add_process" value = "add_process"> Submit! </button>#}
     </div>
 
     <!--가운데 구역 -->
@@ -35,22 +33,21 @@
                         Core
                     </div>
                 <div id="PCCore">
-                    {# showLog.html의 js 때문에 있는 코드 - 보이지 않음 #}
-                    <div id="PCoreInfo" style = "display: none">0</div>
-                    <div id="ECoreInfo" style = "display: none">0</div>
+                    <div id="PCoreInfo" style = "display: none">{{ PCoreAll | length }}</div>
+                    <div id="ECoreInfo" style = "display: none">{{ ECoreAll | length }}</div>
                     <div id = "PCore">
-                        <button class="CoreType" id="core1" onclick="changeColor(1)" >
+                        <button class="CoreType" id="core1">
                             OFF
                         </button>
-                        <button class="CoreType" id="core2" onclick="changeColor(2)">
+                        <button class="CoreType" id="core2">
                             OFF
                         </button>
                     </div>
                     <div id = "CCore">
-                        <button class="CoreType" id="core3" onclick="changeColor(3)">
+                        <button class="CoreType" id="core3">
                             OFF
                         </button>
-                        <button class="CoreType" id="core4" onclick="changeColor(4)">
+                        <button class="CoreType" id="core4">
                             OFF
                         </button>
                     </div>
@@ -59,27 +56,23 @@
         </div>
         <!--알고리즘 부분-->
         <form id = "AlgorithmList" method="POST">
-            <label for="Algorithm"></label>
-            <select id = "Algorithm" name = "Algorithm" class="dropdown-menu" onchange="algorithmExplain(this)">
-                <option value="MyAlgorithm" selected>MyAlgorithm</option>
-                <option value="FCFS">FCFS (First Come First Service)</option>
-                <option value="RR">RR (Round Robin)</option>
-                <option value="SPN">SPN (The Shortest Process Next)</option>
-            </select>
-
-            <div id = "RR">
-                {% csrf_token %}
-                <label id = "LabelRR" style = "display: inline"> RR (δ) : </label>
-                <input type="text" id = "quantum" name="quantum" required size="10">
+            <div id = "AlgorithmInfo">
+                {{ SimulatorInfo.Algorithm }}
             </div>
-            <button id = "algorithmSubmit" type="submit" name="add_algorithm" value = "add_algorithm"> Submit! </button>
+            <div id = "RR">
+                <label id = "LabelRR" style = "display: inline"> RR (δ) : </label>
+                <div id = "quantum">
+                    {{ SimulatorInfo.quantum }}
+                </div>
+            </div>
+{#            <button id = "algorithmSubmit" type="submit" name="add_algorithm" value = "add_algorithm"> Submit! </button>#}
         </form>
 
         <!--시뮬레이터 로그 부분-->
         <div class = "simulatorTable">
             <table class= "simulator" style="width:100%;">
                 <tr>
-                    <th id ="Log"> Simulator Log</th>
+                    <th id ="Log"> Simulator Log!</th>
                 </tr>
                 <tbody id = "Logs">
                     <tr id = "logOne">
@@ -97,10 +90,9 @@
 
         <form id="current-simulator"  method="POST">
             <div id="current">
-                {% csrf_token %}
-                Processor : <input name="processCnt" class="processCnt" value = "1" style="width:27px" readonly> |
-                P Core : <input name="PCoreCnt" class="PCoreCnt" value = "0" readonly>  |
-                E Core : <input name="ECoreCnt" class="ECoreCnt" value = "0" readonly>
+                Processor : {{ processAll | length }} |
+                P Core : {{ PCoreAll | length }}  |
+                E Core : {{ ECoreAll | length }}
             </div>
             <button id = "simulatorInfo" type="submit" name="simulator_info" value = "simulator_info" style = "width: 30px; height: 30px"> go! </button>
         </form>
@@ -114,7 +106,9 @@
         </div>
         <div id = "goAndImage" >
             <div id = "go">
-                <button id = "goButton" type = "button" name="Go" value = "Go">GO!</button>
+                <button id = "backButton" onclick="window.location.href='/'">
+                    NEW!
+                </button>
             </div>
             <div id="team_name">
                 BOSS
